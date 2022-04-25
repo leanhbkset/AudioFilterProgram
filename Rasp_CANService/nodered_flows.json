@@ -1,0 +1,1163 @@
+[
+    {
+        "id": "174fd6a664f79b39",
+        "type": "tab",
+        "label": "Rasp service solution",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "aa1705b783256978",
+        "type": "tcp in",
+        "z": "174fd6a664f79b39",
+        "name": "Server:15103",
+        "server": "server",
+        "host": "",
+        "port": "15103",
+        "datamode": "stream",
+        "datatype": "buffer",
+        "newline": "",
+        "topic": "",
+        "base64": false,
+        "x": 190,
+        "y": 100,
+        "wires": [
+            [
+                "d2f14a2d19a04ee1",
+                "3796585cd3367ab9",
+                "aa4e4db54b679c54"
+            ]
+        ]
+    },
+    {
+        "id": "bf4aa827265fa58a",
+        "type": "debug",
+        "z": "174fd6a664f79b39",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1330,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "b71a19aaca56ccd6",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "ACC ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [\"0x11\"]",
+        "payloadType": "bin",
+        "x": 200,
+        "y": 1360,
+        "wires": [
+            [
+                "f03b33ccf1893fc8"
+            ]
+        ]
+    },
+    {
+        "id": "f03b33ccf1893fc8",
+        "type": "tcp out",
+        "z": "174fd6a664f79b39",
+        "host": "localhost",
+        "port": "15103",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "name": "Client",
+        "x": 830,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "eab1cb4d2595c90d",
+        "type": "pythonshell in",
+        "z": "174fd6a664f79b39",
+        "name": "process",
+        "pyfile": "/home/pi/workplace/python3/projects/PiRelay-V2/solution.py",
+        "virtualenv": "/home/pi/workplace/python3/labvenv",
+        "continuous": true,
+        "stdInData": true,
+        "x": 840,
+        "y": 280,
+        "wires": [
+            [
+                "bf4aa827265fa58a"
+            ]
+        ]
+    },
+    {
+        "id": "d2f14a2d19a04ee1",
+        "type": "debug",
+        "z": "174fd6a664f79b39",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1330,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "5f14e81523814071",
+        "type": "comment",
+        "z": "174fd6a664f79b39",
+        "name": "python node",
+        "info": "",
+        "x": 830,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "3796585cd3367ab9",
+        "type": "function",
+        "z": "174fd6a664f79b39",
+        "name": "Relay function ",
+        "func": "var buf = msg.payload;\nmsg.payload = buf.readInt8().toString(2);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 180,
+        "wires": [
+            [
+                "88c4e4f4e4cc0833",
+                "eab1cb4d2595c90d"
+            ]
+        ]
+    },
+    {
+        "id": "88c4e4f4e4cc0833",
+        "type": "debug",
+        "z": "174fd6a664f79b39",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1330,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "cf5c87dbbbcc6519",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "ACC OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [\"0x10\"]",
+        "payloadType": "bin",
+        "x": 200,
+        "y": 1400,
+        "wires": [
+            [
+                "f03b33ccf1893fc8"
+            ]
+        ]
+    },
+    {
+        "id": "b1db7d63a7fd5e68",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "VOL UP",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [\"0x21\"]",
+        "payloadType": "bin",
+        "x": 200,
+        "y": 1460,
+        "wires": [
+            [
+                "f03b33ccf1893fc8"
+            ]
+        ]
+    },
+    {
+        "id": "03d76219dca67e54",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "VOL DOWN",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [\"0x20\"]",
+        "payloadType": "bin",
+        "x": 210,
+        "y": 1500,
+        "wires": [
+            [
+                "f03b33ccf1893fc8"
+            ]
+        ]
+    },
+    {
+        "id": "f7b254cac804c277",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "Vehicle Speed ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [\"0x31\"]",
+        "payloadType": "bin",
+        "x": 230,
+        "y": 1560,
+        "wires": [
+            [
+                "f03b33ccf1893fc8"
+            ]
+        ]
+    },
+    {
+        "id": "21fa8dbb73c1d83b",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "Vehicle Speed OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [\"0x30\"]",
+        "payloadType": "bin",
+        "x": 230,
+        "y": 1600,
+        "wires": [
+            [
+                "f03b33ccf1893fc8"
+            ]
+        ]
+    },
+    {
+        "id": "b48f4038af02942b",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "Illumination ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [\"0x41\"]",
+        "payloadType": "bin",
+        "x": 220,
+        "y": 1660,
+        "wires": [
+            [
+                "f03b33ccf1893fc8"
+            ]
+        ]
+    },
+    {
+        "id": "07eb8b709f275a85",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "Illumination OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [\"0x40\"]",
+        "payloadType": "bin",
+        "x": 220,
+        "y": 1700,
+        "wires": [
+            [
+                "f03b33ccf1893fc8"
+            ]
+        ]
+    },
+    {
+        "id": "9805ef271a33dc4c",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "Audio In ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [\"0x51\"]",
+        "payloadType": "bin",
+        "x": 210,
+        "y": 1760,
+        "wires": [
+            [
+                "f03b33ccf1893fc8"
+            ]
+        ]
+    },
+    {
+        "id": "98c4bb11fbc5e767",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "Audio In OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [\"0x50\"]",
+        "payloadType": "bin",
+        "x": 210,
+        "y": 1800,
+        "wires": [
+            [
+                "f03b33ccf1893fc8"
+            ]
+        ]
+    },
+    {
+        "id": "70f301fb2959243d",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "Audio Out ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [\"0x61\"]",
+        "payloadType": "bin",
+        "x": 210,
+        "y": 1860,
+        "wires": [
+            [
+                "f03b33ccf1893fc8"
+            ]
+        ]
+    },
+    {
+        "id": "945410cc563904fc",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "Audio Out OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [\"0x60\"]",
+        "payloadType": "bin",
+        "x": 220,
+        "y": 1900,
+        "wires": [
+            [
+                "f03b33ccf1893fc8"
+            ]
+        ]
+    },
+    {
+        "id": "de9bb52f9a4fc0f4",
+        "type": "comment",
+        "z": "174fd6a664f79b39",
+        "name": "Client side (Simulate DF)",
+        "info": "",
+        "x": 230,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "e53f7e1da4b70b3c",
+        "type": "comment",
+        "z": "174fd6a664f79b39",
+        "name": "Server side (RPi)",
+        "info": "",
+        "x": 200,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "aa4e4db54b679c54",
+        "type": "function",
+        "z": "174fd6a664f79b39",
+        "name": "Audio function",
+        "func": "var buf = msg.payload;\nmsg.payload = buf.readInt8().toString(10);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 360,
+        "wires": [
+            [
+                "a26f513a057b53fc"
+            ]
+        ]
+    },
+    {
+        "id": "a26f513a057b53fc",
+        "type": "switch",
+        "z": "174fd6a664f79b39",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "81",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "80",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "97",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "96",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 710,
+        "y": 440,
+        "wires": [
+            [
+                "c236b209a2092588"
+            ],
+            [
+                "39d0de5dc1083f06"
+            ],
+            [
+                "b6384c40f639ad8b"
+            ],
+            [
+                "e7d1c74fad429b4f"
+            ]
+        ]
+    },
+    {
+        "id": "39d0de5dc1083f06",
+        "type": "change",
+        "z": "174fd6a664f79b39",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kill",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 930,
+        "y": 440,
+        "wires": [
+            [
+                "c236b209a2092588"
+            ]
+        ]
+    },
+    {
+        "id": "e7d1c74fad429b4f",
+        "type": "change",
+        "z": "174fd6a664f79b39",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kill",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 930,
+        "y": 540,
+        "wires": [
+            [
+                "b6384c40f639ad8b"
+            ]
+        ]
+    },
+    {
+        "id": "c236b209a2092588",
+        "type": "exec",
+        "z": "174fd6a664f79b39",
+        "command": "export DISPLAY=:0 && gst-launch-1.0 -v tcpserversrc host=0.0.0.0  port=15102 ! rawaudioparse use-sink-caps=false format=pcm pcm-format=s16le sample-rate=8000 num-channels=2  ! audioconvert !  audioresample ! alsasink sync=false",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Audio in",
+        "x": 1100,
+        "y": 380,
+        "wires": [
+            [
+                "179562d06482061e"
+            ],
+            [
+                "179562d06482061e"
+            ],
+            [
+                "179562d06482061e"
+            ]
+        ]
+    },
+    {
+        "id": "b6384c40f639ad8b",
+        "type": "exec",
+        "z": "174fd6a664f79b39",
+        "command": "export DISPLAY=:0 && gst-launch-1.0 -v autoaudiosrc  ! audio/x-raw, format=S16LE, rate=8000, channels=2, layout=interleaved ! audioconvert ! wavenc ! tcpserversink host=0.0.0.0 port=15101",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Audio out",
+        "x": 1100,
+        "y": 520,
+        "wires": [
+            [
+                "18be4a20886f1228"
+            ],
+            [
+                "18be4a20886f1228"
+            ],
+            [
+                "18be4a20886f1228"
+            ]
+        ]
+    },
+    {
+        "id": "179562d06482061e",
+        "type": "debug",
+        "z": "174fd6a664f79b39",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1330,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "18be4a20886f1228",
+        "type": "debug",
+        "z": "174fd6a664f79b39",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1330,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "b68a667fa087c381",
+        "type": "tcp in",
+        "z": "174fd6a664f79b39",
+        "name": "Server:34363",
+        "server": "server",
+        "host": "",
+        "port": "34363",
+        "datamode": "stream",
+        "datatype": "buffer",
+        "newline": "",
+        "topic": "",
+        "base64": false,
+        "x": 130,
+        "y": 640,
+        "wires": [
+            [
+                "e571acf72cc0d315",
+                "72b089aca7f8e1cc",
+                "92475c6ca8215da9"
+            ]
+        ]
+    },
+    {
+        "id": "f52be08c643a9b48",
+        "type": "debug",
+        "z": "174fd6a664f79b39",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1330,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "e571acf72cc0d315",
+        "type": "function",
+        "z": "174fd6a664f79b39",
+        "name": "CAN function ",
+        "func": "var buf = msg.payload;\nmsg.payload = buf;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 700,
+        "wires": [
+            [
+                "d454ef037c7529f2"
+            ]
+        ]
+    },
+    {
+        "id": "d454ef037c7529f2",
+        "type": "pythonshell in",
+        "z": "174fd6a664f79b39",
+        "name": "TX process",
+        "pyfile": "/home/pi/workplace/PiCanDuo/PiCAN-Python-examples-master/CANSolution.py",
+        "virtualenv": "/home/pi/workplace/python3/labvenv",
+        "continuous": true,
+        "stdInData": true,
+        "x": 870,
+        "y": 700,
+        "wires": [
+            [
+                "f52be08c643a9b48"
+            ]
+        ]
+    },
+    {
+        "id": "72b089aca7f8e1cc",
+        "type": "debug",
+        "z": "174fd6a664f79b39",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1330,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "fd5a7c9984277d91",
+        "type": "tcp out",
+        "z": "174fd6a664f79b39",
+        "host": "localhost",
+        "port": "34363",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "name": "Client",
+        "x": 570,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "e82cf8c60d153ae2",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "CAN SIGNAL",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[170,0,10,0,0,5,147,0,0,0,0,0,0,54]",
+        "payloadType": "bin",
+        "x": 210,
+        "y": 1020,
+        "wires": [
+            [
+                "fd5a7c9984277d91"
+            ]
+        ]
+    },
+    {
+        "id": "749bd810b0309fdb",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "CAN0 ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " [0,1, 0]",
+        "payloadType": "bin",
+        "x": 200,
+        "y": 1080,
+        "wires": [
+            [
+                "fd5a7c9984277d91"
+            ]
+        ]
+    },
+    {
+        "id": "ca8404627a4b33d9",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "CAN0 OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[0, 0, 1]",
+        "payloadType": "bin",
+        "x": 200,
+        "y": 1120,
+        "wires": [
+            [
+                "fd5a7c9984277d91"
+            ]
+        ]
+    },
+    {
+        "id": "3468be05e1907b88",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "CAN1 ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[1, 1, 0]",
+        "payloadType": "bin",
+        "x": 200,
+        "y": 1200,
+        "wires": [
+            [
+                "fd5a7c9984277d91"
+            ]
+        ]
+    },
+    {
+        "id": "bcdbb276355c6297",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "CAN1 OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[1, 0, 1]",
+        "payloadType": "bin",
+        "x": 200,
+        "y": 1240,
+        "wires": [
+            [
+                "fd5a7c9984277d91"
+            ]
+        ]
+    },
+    {
+        "id": "266e9b128aed1f93",
+        "type": "tcp in",
+        "z": "174fd6a664f79b39",
+        "name": "Server:30001",
+        "server": "server",
+        "host": "",
+        "port": "30001",
+        "datamode": "stream",
+        "datatype": "buffer",
+        "newline": "",
+        "topic": "",
+        "base64": false,
+        "x": 750,
+        "y": 860,
+        "wires": [
+            [
+                "fe9aea62242d8332",
+                "eb2916654e38ac1c"
+            ]
+        ]
+    },
+    {
+        "id": "fe9aea62242d8332",
+        "type": "function",
+        "z": "174fd6a664f79b39",
+        "name": "CAN function ",
+        "func": "var buf = msg.payload;\nmsg.payload = buf;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 920,
+        "wires": [
+            [
+                "e15c71098b623665"
+            ]
+        ]
+    },
+    {
+        "id": "eb2916654e38ac1c",
+        "type": "function",
+        "z": "174fd6a664f79b39",
+        "name": "IP function ",
+        "func": "var buf = msg.ip;\nmsg.payload = buf;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 1000,
+        "wires": [
+            [
+                "e15c71098b623665"
+            ]
+        ]
+    },
+    {
+        "id": "fdcfaac89de1f6b8",
+        "type": "debug",
+        "z": "174fd6a664f79b39",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1570,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "8ea05599dd435cea",
+        "type": "tcp out",
+        "z": "174fd6a664f79b39",
+        "host": "localhost",
+        "port": "30001",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "name": "Client",
+        "x": 570,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "1ea8318c721425e2",
+        "type": "inject",
+        "z": "174fd6a664f79b39",
+        "name": "CAN SIGNAL",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[170,0,10,0,0,5,147,0,0,0,0,0,0,54]",
+        "payloadType": "bin",
+        "x": 210,
+        "y": 860,
+        "wires": [
+            [
+                "8ea05599dd435cea"
+            ]
+        ]
+    },
+    {
+        "id": "e15c71098b623665",
+        "type": "pythonshell in",
+        "z": "174fd6a664f79b39",
+        "name": "Test IP Payload",
+        "pyfile": "/home/pi/workplace/PiCanDuo/PiCAN-Python-examples-master/testIPPayload.py",
+        "virtualenv": "/home/pi/workplace/python3/labvenv",
+        "continuous": true,
+        "stdInData": true,
+        "x": 1340,
+        "y": 1000,
+        "wires": [
+            [
+                "fdcfaac89de1f6b8"
+            ]
+        ]
+    },
+    {
+        "id": "a3340af949550cc8",
+        "type": "tcp in",
+        "z": "174fd6a664f79b39",
+        "name": "Server:35363",
+        "server": "server",
+        "host": "",
+        "port": "35363",
+        "datamode": "stream",
+        "datatype": "buffer",
+        "newline": "",
+        "topic": "",
+        "base64": false,
+        "x": 130,
+        "y": 580,
+        "wires": [
+            [
+                "844afdf7bcb1ca2c"
+            ]
+        ]
+    },
+    {
+        "id": "844afdf7bcb1ca2c",
+        "type": "debug",
+        "z": "174fd6a664f79b39",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "92475c6ca8215da9",
+        "type": "function",
+        "z": "174fd6a664f79b39",
+        "name": "IP function ",
+        "func": "var buf = msg.ip;\nmsg.payload = buf;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 760,
+        "wires": [
+            [
+                "d454ef037c7529f2"
+            ]
+        ]
+    }
+]
